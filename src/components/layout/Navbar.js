@@ -4,20 +4,18 @@ import { Link } from 'react-router-dom'
 
 const Navbar = ({title}) => {
     return (
-        <div className='navbar' style={{ color: '#cfcfcf' }}>
-            <h2>{title}</h2>
-            <ul>
-                <li className="nav-item">
-                    <Link className="nav-link" to='/'>Home</Link>
-                </li>
-                <li className="nav-item">
-                    <Link className="nav-link" to='/scores'>Scores</Link>
-                </li>
-                <li className="nav-item">
-                    <Link className="nav-link" to='/upcoming'>Upcoming</Link>
-                </li>
-            </ul>
-        </div>
+        <nav className='navbar navbar-expand-md navbar-dark bg-dark'
+            // style={{ marginBottom: '1rem' }}
+            >
+            <Link to='/' className="navbar-brand">{title}</Link>
+            <div className="collapse navbar-collapse" id="navbarNav">
+                <div className="navbar-nav">
+                    {/* <Link className="nav-item nav-link" to='/'>Home</Link> */}
+                    <Link className="nav-item nav-link" to='/scores'>Scores</Link>
+                    <Link className="nav-item nav-link" to='/upcoming'>Upcoming</Link>
+                </div>
+            </div>
+        </nav>
     )
 }
 

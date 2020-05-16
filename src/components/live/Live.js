@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import MatchListItem from '../matches/MatchListItem'
+import Spinner from '../layout/Spinner'
 
 const Live = () => {
     const [liveMatches, setLiveMatches] = useState([]);
@@ -23,9 +24,9 @@ const Live = () => {
     return (
         <div style={{ marginTop: '10px' }}>
             { liveMatches.length === 0 ? <h2 className='text-center'>No Live Matches</h2> : <h2 className='text-center'>Live Matches</h2>}
-            <div className='card-columns'>
+            { loading ? <Spinner /> : (<div className='card-columns'>
                 { liveMatches.length > 0 && liveMatches.map(match => <MatchListItem key={match.id} match={match} /> )}
-            </div>
+            </div>) }
         </div>
     )
 }

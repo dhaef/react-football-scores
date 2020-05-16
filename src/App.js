@@ -11,7 +11,7 @@ const App = () => {
   return (
     <Router>
       <Navbar title={'React Football'} />
-      <div className='container'>
+      <div>
         <Switch>
           <Route exact path='/' component={Home}></Route>
           <Route exact path='/scores' component={MatchList}></Route>

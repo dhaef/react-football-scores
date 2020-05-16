@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import MatchListItem from './MatchListItem';
 import MatchOptions from './MatchOptions';
+import Spinner from '../layout/Spinner';
 
 const MatchList = () => {
     const [matches, setMatches] = useState([]);
@@ -28,7 +29,8 @@ const MatchList = () => {
     }, [dataToCall])
 
     return (
-        <div>
+        <div className="container"
+            style={{ marginTop: '1rem' }}>
             <div className="input-group mb-3">
                 <div className="input-group-prepend">
                     <label className="input-group-text" htmlFor="competition">Competition</label>
@@ -88,7 +90,7 @@ const MatchList = () => {
             <h2 className='text-center'>{`Matchday ${dataToCall.matchday}`}</h2>
 
             <div className="card-columns">
-                {!loading && matches.map(match => <MatchListItem key={match.id} match={match} />)}
+                {loading ? <Spinner /> : matches.map(match => <MatchListItem key={match.id} match={match} />)}
             </div>
 
         </div>

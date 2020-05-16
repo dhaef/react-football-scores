@@ -20,6 +20,24 @@
   color: var(--success-color);
 }
 
+.loading {
+  border: 16px solid darkgrey;
+  border-top: 16px solid black;
+  border-radius: 50%;
+  width: 20vh;
+  height: 20vh;
+  animation: spin 2s linear infinite;
+  position: absolute;
+  z-index: 99;
+  top: 40%;
+  left: 45%;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
 body {
   font-family: 'Roboto', sans-serif;
   font-size: 1rem;
@@ -356,7 +374,7 @@ table th {
 } */
 
 /* Navbar */
-.navbar {
+/* .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -384,7 +402,7 @@ table th {
 
 .navbar .welcome span {
   margin-right: 0.6rem;
-}
+} */
 
 /* Mobile Styles */
 @media (max-width: 700px) {

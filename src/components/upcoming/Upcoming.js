@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import MatchListItem from '../matches/MatchListItem'
+import Spinner from '../layout/Spinner'
 
 const Upcoming = () => {
     const [dateRange, setDateRange] = useState({ start: '2019-02-06', end: '2019-02-07' });
     const [matches, setMatches] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     const handleDateChange = e => {
         setDateRange({ ...dateRange, [e.target.name]: e.target.value });
@@ -15,13 +17,13 @@ const Upcoming = () => {
     };
 
     const getData = async () => {
-        // setLoading(true)
+        setLoading(true)
         const res = await fetch(`https://api.football-data.org/v2/matches?dateFrom=${dateRange.start}&dateTo=${dateRange.end}`, 
         {headers: {'X-Auth-Token': '3e7fcad6f9304719999bff2e37c6b442'}});
         const data = await res.json();
         console.log(data);
         setMatches(data.matches);
-        // setLoading(false);
+        setLoading(false);
     };
 
     useEffect(() => {
@@ -30,7 +32,8 @@ const Upcoming = () => {
     }, []);
 
     return (
-        <div>
+        <div className="container"
+            style={{ marginTop: '1rem' }}>
             <form onSubmit={handleSubmitDateRange}>
                 <div className="input-group mb-3">
                     <div className="input-group-prepend">
@@ -62,9 +65,11 @@ const Upcoming = () => {
                     Set Date Range
                 </button>
             </form>
-            { matches.length === 0 ? <h2 className='text-center'  style={{ marginTop: '10px' }}>No Matches During This Time</h2> : <h2 className='text-center'  style={{ marginTop: '10px' }}>Matches</h2>}
+            { matches.length === 0 ? 
+                <h2 className='text-center'  style={{ marginTop: '10px' }}>No Matches During This Time</h2> : 
+                <h2 className='text-center'  style={{ marginTop: '10px' }}>Matches</h2>}
             <div className='card-columns'>
-                { matches.length > 0 && matches.map(match => <MatchListItem key={match.id} match={match} /> )}
+                { loading ? <Spinner /> : matches.map(match => <MatchListItem key={match.id} match={match} /> )}
             </div>
         </div>
     )
