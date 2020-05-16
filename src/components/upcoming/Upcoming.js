@@ -3,9 +3,10 @@ import MatchListItem from '../matches/MatchListItem'
 import Spinner from '../layout/Spinner'
 
 const Upcoming = () => {
-    const [dateRange, setDateRange] = useState({ start: '2019-02-06', end: '2019-02-07' });
+    const [dateRange, setDateRange] = useState({ start: '2020-05-17', end: '2020-05-18' });
     const [matches, setMatches] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [limitMatches, setLimitMatches] = useState(1);
 
     const handleDateChange = e => {
         setDateRange({ ...dateRange, [e.target.name]: e.target.value });
@@ -22,7 +23,7 @@ const Upcoming = () => {
         {headers: {'X-Auth-Token': '3e7fcad6f9304719999bff2e37c6b442'}});
         const data = await res.json();
         console.log(data);
-        setMatches(data.matches);
+        setMatches(data.matches.filter(match => match.status !== "POSTPONED"));
         setLoading(false);
     };
 
@@ -30,6 +31,15 @@ const Upcoming = () => {
         getData();
         // eslint-disable-next-line
     }, []);
+
+    const showLoadMoreBtn = () => {
+        if (!loading && (limitMatches * 6) < matches.length ) {
+            return <button className="btn btn-secondary" 
+                        onClick={() => setLimitMatches(limitMatches + 1)}
+                        style={{ width: '100%' }}>
+                Load More...</button>
+        }
+    }
 
     return (
         <div className="container"
@@ -59,18 +69,26 @@ const Upcoming = () => {
 
                     </input>
                 </div>
-                <button className="btn btn-primary"
+                <button className="btn btn-secondary"
                     type="submit"
                     style={{ width: '100%' }}>
-                    Set Date Range
+                    Find Matches
                 </button>
             </form>
             { matches.length === 0 ? 
                 <h2 className='text-center'  style={{ marginTop: '10px' }}>No Matches During This Time</h2> : 
                 <h2 className='text-center'  style={{ marginTop: '10px' }}>Matches</h2>}
             <div className='card-columns'>
-                { loading ? <Spinner /> : matches.map(match => <MatchListItem key={match.id} match={match} /> )}
+                { loading ? 
+                    <Spinner /> : 
+                    matches.map((match, index) => {
+                        if (index < (6 * limitMatches)) {
+                            return <MatchListItem key={match.id} match={match} />
+                        }
+                        return;
+                    } )}
             </div>
+            { showLoadMoreBtn() }
         </div>
     )
 }

@@ -7,6 +7,7 @@ const MatchList = () => {
     const [matches, setMatches] = useState([]);
     const [loading, setLoading] = useState(false);
     const [dataToCall, setDataToCall] = useState({ competition: 2021, season: 2019, matchday: 1 });
+    const [limitMatches, setLimitMatches] = useState(1);
 
     const handleChange = e => {
         setDataToCall({ ...dataToCall, [e.target.name]: parseInt(e.target.value) });
@@ -25,8 +26,18 @@ const MatchList = () => {
         };
 
         getData();
+
         // eslint-disable-next-line
     }, [dataToCall])
+
+    const showLoadMoreBtn = () => {
+        if (!loading && (limitMatches * 6) < matches.length ) {
+            return <button className="btn btn-secondary" 
+                        onClick={() => setLimitMatches(limitMatches + 1)}
+                        style={{ width: '100%' }}>
+                Load More...</button>
+        }
+    }
 
     return (
         <div className="container"
@@ -90,9 +101,16 @@ const MatchList = () => {
             <h2 className='text-center'>{`Matchday ${dataToCall.matchday}`}</h2>
 
             <div className="card-columns">
-                {loading ? <Spinner /> : matches.map(match => <MatchListItem key={match.id} match={match} />)}
+                {loading ? 
+                    <Spinner /> : 
+                    matches.map((match, index) => {
+                        if (index < (6 * limitMatches)) {
+                            return <MatchListItem key={match.id} match={match} />
+                        }
+                        return;
+                    })}
             </div>
-
+            { showLoadMoreBtn() }
         </div>
     )
 }

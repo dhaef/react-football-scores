@@ -10,10 +10,16 @@ const Home = () => {
                 <div className="row">
                     <div className="col-4"></div>
                     <div className="col-2">
-                        <Link to="/scores" className="btn btn-primary">Scores</Link>
+                        <Link to="/scores" 
+                        className="btn btn-secondary"
+                        style={{ width: '100%' }}
+                        >Scores</Link>
                     </div>
                     <div className="col-2">
-                        <Link to="/upcoming" className="btn btn-primary">Upcoming</Link>
+                        <Link to="/upcoming" 
+                        className="btn btn-secondary"
+                        style={{ width: '100%' }}
+                        >Upcoming</Link>
                     </div>
                     <div className="col-4"></div>
                 </div>
