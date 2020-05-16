@@ -317,7 +317,7 @@ select:focus {
 }
 
 /* Forms */
-input {
+/* input {
   margin: 1.2rem 0;
 }
 
@@ -353,7 +353,7 @@ table td {
 
 table th {
   background: var(--light-color);
-}
+} */
 
 /* Navbar */
 .navbar {

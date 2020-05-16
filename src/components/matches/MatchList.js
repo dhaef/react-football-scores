@@ -5,7 +5,7 @@ import MatchOptions from './MatchOptions';
 const MatchList = () => {
     const [matches, setMatches] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [dataToCall, setDataToCall] = useState({ competition: 2021, season: 2019, matchday: 1 })
+    const [dataToCall, setDataToCall] = useState({ competition: 2021, season: 2019, matchday: 1 });
 
     const handleChange = e => {
         setDataToCall({ ...dataToCall, [e.target.name]: parseInt(e.target.value) });
@@ -28,15 +28,15 @@ const MatchList = () => {
     }, [dataToCall])
 
     return (
-        <div className="container">
+        <div>
             <div className="input-group mb-3">
                 <div className="input-group-prepend">
-                    <label className="input-group-text" for="competition">Competitions</label>
+                    <label className="input-group-text" htmlFor="competition">Competition</label>
                 </div>
-                <select className="custom-select" 
-                        name="competition" 
-                        value={dataToCall.competition} 
-                        onChange={handleChange}>
+                <select className="custom-select"
+                    name="competition"
+                    value={dataToCall.competition}
+                    onChange={handleChange}>
                     <option value="2021">Premier League</option>
                     <option value="2014">La Liga</option>
                     <option value="2002">Bundesliga</option>
@@ -53,12 +53,12 @@ const MatchList = () => {
             </div>
             <div className="input-group mb-3">
                 <div className="input-group-prepend">
-                    <label className="input-group-text" for="season">Seasons</label>
+                    <label className="input-group-text" htmlFor="season">Season</label>
                 </div>
-                <select className="custom-select" 
-                        name='season' 
-                        value={dataToCall.season} 
-                        onChange={ handleChange }>
+                <select className="custom-select"
+                    name='season'
+                    value={dataToCall.season}
+                    onChange={handleChange}>
                     <option value='2000'>2000</option>
                     <option value='2001'>2001</option>
                     <option value='2002'>2002</option>
@@ -75,19 +75,22 @@ const MatchList = () => {
             </div>
             <div className="input-group mb-3">
                 <div className="input-group-prepend">
-                    <label className="input-group-text" for="matchday">Matchdays</label>
+                    <label className="input-group-text" htmlFor="matchday">Matchday</label>
                 </div>
-                <select className="custom-select" 
-                        name='matchday' 
-                        onChange={ handleChange } 
-                        value={dataToCall.matchday}>
+                <select className="custom-select"
+                    name='matchday'
+                    onChange={handleChange}
+                    value={dataToCall.matchday}>
                     <MatchOptions />
                 </select>
             </div>
-            <h2 className='text-center'>{ `Matchday ${dataToCall.matchday}` }</h2>
+
+            <h2 className='text-center'>{`Matchday ${dataToCall.matchday}`}</h2>
+
             <div className="card-columns">
                 {!loading && matches.map(match => <MatchListItem key={match.id} match={match} />)}
             </div>
+
         </div>
     )
 }
